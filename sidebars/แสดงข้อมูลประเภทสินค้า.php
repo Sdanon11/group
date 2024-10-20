@@ -38,7 +38,7 @@ $result = $conn->query("SELECT * FROM `category`");
         <h2 class="text-center">ชื่อประเภทสินค้า</h2>
         <div class="mb-3">
             <a href="index.php" class="btn btn-secondary">กลับไปหน้าหลัก</a> <!-- ปุ่มกลับไปหน้าหลักชิดซ้าย -->
-            <a href="in_type.php" class="btn btn-secondary">เพิ่มประเภทสินค้า</a>
+            <a href="เพิ่มประเภทสินค้า.php" class="btn btn-secondary">เพิ่มประเภทสินค้า</a>
         </div>
         <table class="table table-striped table-bordered">
             <thead class="thead-dark">
