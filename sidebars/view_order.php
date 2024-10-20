@@ -52,6 +52,7 @@
 
 <body>
 <h1>รายการใบสั่งซื้อ</h1>
+<a href="index.php" class="btn btn-secondary">กลับไปหน้าหลัก</a> <!-- ปุ่มกลับไปหน้าหลักชิดซ้าย -->
 
 <table>
   <tr>
