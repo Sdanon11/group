@@ -17,7 +17,7 @@ if ($conn->connect_error) {
 }
 
 // คำสั่ง SQL เพื่อดึงข้อมูลชื่อผู้ใช้
-$sql = "SELECT a_username FROM admin WHERE a_id = 1"; // เปลี่ยนตามเงื่อนไขที่ต้องการ
+$sql = "SELECT a_name FROM admin WHERE a_id = 1"; // เปลี่ยนตามเงื่อนไขที่ต้องการ
 $result = $conn->query($sql);
 
 // ตรวจสอบว่าพบข้อมูลหรือไม่
@@ -25,7 +25,7 @@ if ($result->num_rows > 0) {
     // ดึงข้อมูลจากแถวแรก
     $row = $result->fetch_assoc();
     // ตั้งค่าเซสชันสำหรับ a_username
-    $_SESSION['a_username'] = $row['a_username'];
+    $_SESSION['a_name'] = $row['a_name'];
 } else {
     echo "ไม่พบข้อมูลผู้ใช้";
 }
@@ -192,8 +192,8 @@ $conn->close();
             <li class="nav-item d-flex align-items-right">
                 <span class="navbar-text mx-3" style="text-align: center; width: 100%; color: black;">
                     <?php
-                    if (isset($_SESSION['a_username'])) {
-                        echo "ชื่อผู้ใช้งาน: " . htmlspecialchars($_SESSION['a_username']);
+                    if (isset($_SESSION['a_name'])) {
+                        echo "ชื่อผู้ใช้งาน: " . htmlspecialchars($_SESSION['a_name']);
                     } else {
                         echo "ชื่อผู้ใช้งาน: ";
                     }
