@@ -146,34 +146,27 @@
         </div>
       </li>
       <li class="border-top my-3"></li>
-      <li class="mb-1">
-        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
-          แอดมิน
-        </button>
-        <li class="nav-item d-flex align-items-right">
-    <span class="navbar-text text-white mx-3" style="text-align: center; width: 100%; color: black;">
-        <?php
-        if (isset($_SESSION['a_username'])) {
-            echo "ชื่อผู้ใช้งาน: " . htmlspecialchars($_SESSION['a_username']);
-        } else {
-            echo "ชื่อผู้ใช้งาน: ";
-        }
-        ?>
-    </span>
+<li class="mb-1">
+    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
+        แอดมิน
+    </button>
+    <div class="collapse" id="account-collapse">
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li class="nav-item d-flex align-items-right">
+                <span class="navbar-text mx-3" style="text-align: center; width: 100%; color: black;">
+                    <?php
+                    if (isset($_SESSION['a_username'])) {
+                        echo "ชื่อผู้ใช้งาน: " . htmlspecialchars($_SESSION['a_username']);
+                    } else {
+                        echo "ชื่อผู้ใช้งาน: ";
+                    }
+                    ?>
+                </span>
+            </li>
+        </ul>
+    </div>
 </li>
-        <div class="collapse" id="account-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-          <li class="nav-item d-flex align-items-right">
-    <span class="navbar-text text-white mx-3" style="text-align: center; width: 100%; color: black;">
-        <?php
-        if (isset($_SESSION['a_username'])) {
-            echo "ชื่อผู้ใช้งาน: " . htmlspecialchars($_SESSION['a_username']);
-        } else {
-            echo "ชื่อผู้ใช้งาน: ";
-        }
-        ?>
-    </span>
-</li>
+
 
             <li><a href="logout.php" class="btn btn-secondary my-2">Sign out</a></li>
           </ul>
