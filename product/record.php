@@ -10,7 +10,7 @@
 	
 	$sql = "insert into `orders` values(NULL, '$total', CURRENT_TIMESTAMP, '{$_SESSION['aid']}');" ;
 	//var_dump($sql);exit;
-	mysqli_query($conn, $sql) or die ("insert error") ;
+	mysqli_query($conn, $sql) or die ("กรุณาเข้าสู่ระบบก่อน") ;
 	$id = mysqli_insert_id($conn);
 	
 	foreach($_SESSION['sid'] as $pid) {
