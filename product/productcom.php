@@ -1,5 +1,6 @@
 <?php
 	include("connectdb.php");
+    
 ?>
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
@@ -27,7 +28,7 @@
             -moz-user-select: none;
             user-select: none;
         }
-        .card img {
+		 .card img {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border-radius: 0.5rem; /* Rounded corners for images */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
@@ -142,7 +143,7 @@
 
                     <form method="post" action="">
                         ค้นหา <input type="text" name="search" autofocus>
-                        <button type="submit" name="submit" class="btn btn-red">OK</button> <!-- ปรับปุ่ม OK เป็นสีแดง -->
+                        <button type="submit" name="submit">OK</button>
                     </form>
 
                     <div class="mt-3">
@@ -152,7 +153,7 @@
                         $rs2 = mysqli_query($conn, $sql2);
                         while ($data2 = mysqli_fetch_array($rs2, MYSQLI_BOTH)) {
                             ?>
-                      <a href="productcom.php?pt=<?=$data2['c_id'];?>" class="btn btn-red"><?=$data2['c_name'];?></a> <!-- ปรับปุ่ม category เป็นสีแดง -->
+                      <a href="productcom.php?pt=<?=$data2['c_id'];?>" class="btn btn-light"><?=$data2['c_name'];?></a>
                         <?php } 
 						?>
                     </div>
@@ -185,9 +186,29 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="btn-group">
                                             <p>
-    <a href="basket.php?id=<?=$data['p_id'];?>" class="btn btn-red">เพิ่มลงรถเข็น</a> <!-- ปรับปุ่มเพิ่มลงรถเข็น เป็นสีแดง -->
+    <a href="basket.php?id=<?=$data['p_id'];?>" class="btn btn-sm btn-info">เพิ่มลงรถเข็น</a>
 </p>
 
                                         </div>
                                     </div>
-                             
+                              </div>
+                          </div>
+                        </div>
+                    <?php } ?>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="text-body-secondary py-5">
+        <div class="container">
+            <p class="float-end mb-1">
+                <a href="#">Back to top</a>
+            </p>
+            <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
+            <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="../getting-started/introduction/">getting started guide</a>.</p>
+        </div>
+    </footer>
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
