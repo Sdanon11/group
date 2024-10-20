@@ -59,7 +59,7 @@
 <body>
     <div class="container">
         <h1>รายละเอียดใบสั่งซื้อ เลขที่ <?= htmlspecialchars($_GET['a']); ?></h1>
-        <a href="view_order.php" class="btn btn-secondary">กลับไปหน้ารายการสินค้า</a> <!-- ปุ่มกลับไปหน้าหลักชิดซ้าย -->
+        <a href="view_order.php" class="btn btn-secondary" style="float: left;">กลับไปหน้ารายการสินค้า</a> <!-- ปุ่มกลับไปหน้าหลักชิดซ้าย -->
         <table>
             <tr>
                 <th>ที่</th>
