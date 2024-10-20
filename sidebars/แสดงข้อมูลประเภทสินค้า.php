@@ -54,7 +54,7 @@ $result = $conn->query("SELECT * FROM `category`");
                     <td><?php echo htmlspecialchars($category['c_id']); ?></td>
                     <td><?php echo htmlspecialchars($category['c_name']); ?></td>
                     <td>
-                        <a href="เพิ่มประเภทสินค้า.php?id=<?php echo $category['c_id']; ?>" class="btn btn-primary btn-sm">แก้ไข</a>
+                        <a href="แก้ไขประเภทสินค้า.php?id=<?php echo $category['c_id']; ?>" class="btn btn-primary btn-sm">แก้ไข</a>
                         <a href="deleteประเภทสินค้า.php?cid=<?php echo $category['c_id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('คุณแน่ใจว่าต้องการลบสินค้าประเภทนี้?');">ลบ</a>
                     </td>
                 </tr>

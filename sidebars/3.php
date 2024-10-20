@@ -1,9 +1,9 @@
 <?php
 // เชื่อมต่อกับฐานข้อมูล
-$host = 'localhost'; // หรือที่อยู่ของเซิร์ฟเวอร์ฐานข้อมูล
-$db = 'shop';
-$user = 'root';
-$pass = '1234mark';
+$host = "localhost"; // หรือที่อยู่ของเซิร์ฟเวอร์ฐานข้อมูล
+$db = "shop";
+$user = "root";
+$pass = "1234mark";
 
 $conn = new mysqli($host, $user, $pass, $db);
 if ($conn->connect_error) {
