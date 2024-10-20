@@ -38,7 +38,7 @@ $result = $conn->query("SELECT * FROM `category`");
         <h2 class="text-center">ชื่อประเภทสินค้า</h2>
         <div class="mb-3">
             <a href="index.php" class="btn btn-secondary">กลับไปหน้าหลัก</a> <!-- ปุ่มกลับไปหน้าหลักชิดซ้าย -->
-            <a href="เพิ่มประเภทสินค้า.php" class="btn btn-secondary">เพิ่มประเภทสินค้า</a>
+            <a href="in_type.php" class="btn btn-secondary">เพิ่มประเภทสินค้า</a>
         </div>
         <table class="table table-striped table-bordered">
             <thead class="thead-dark">
@@ -54,8 +54,8 @@ $result = $conn->query("SELECT * FROM `category`");
                     <td><?php echo htmlspecialchars($category['c_id']); ?></td>
                     <td><?php echo htmlspecialchars($category['c_name']); ?></td>
                     <td>
-                        <a href="แก้ไขประเภทสินค้า.php?id=<?php echo $category['c_id']; ?>" class="btn btn-primary btn-sm">แก้ไข</a>
-                        <a href="deleteประเภทสินค้า.php?cid=<?php $data['c_id']; ?>?ext=?cid<?php $data['c_id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('คุณแน่ใจว่าต้องการลบสินค้าประเภทนี้?');">ลบ</a>
+                        <a href="เพิ่มประเภทสินค้า.php?id=<?php echo $category['c_id']; ?>" class="btn btn-primary btn-sm">แก้ไข</a>
+                        <a href="deleteประเภทสินค้า.php?cid=<?php echo $category['c_id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('คุณแน่ใจว่าต้องการลบสินค้าประเภทนี้?');">ลบ</a>
                     </td>
                 </tr>
                 <?php endwhile; ?>
