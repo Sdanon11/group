@@ -78,7 +78,7 @@ include("connectdb.php");
             <li><a class="dropdown-item" href="signin1.php">เข้าสู่ระบบลูกค้า</a></li>
             <li><a class="dropdown-item" href="signin.php">เข้าสู่ระบบ Admin</a></li>
             <li ><a class="dropdown-item" href="logout.php">ออกจากระบบ</a> </li>
-             <li ><a class="dropdown-item" href="memberedit.php?id=[id]" >แก้ไขข้อมูลลูกค้า</a></li>
+             <li ><a class="dropdown-item" href="memberedit.php?id=2" >แก้ไขข้อมูลลูกค้า</a></li>
         </ul>
     </div>
 </li>

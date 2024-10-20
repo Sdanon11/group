@@ -1,78 +1,157 @@
 <?php
 session_start();
 include_once("../product/connectdbmember.php"); // เชื่อมต่อฐานข้อมูล
-// เชื่อมต่อกับฐานข้อมูล
-$conn = new mysqli('localhost', 'username', 'password', 'database');
 
-// ตรวจสอบการเชื่อมต่อ
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+// ตรวจสอบว่าได้รับ ID ของสมาชิกหรือไม่
+if (!isset($_GET['id'])) {
+    die("ID not set.");
 }
 
-// รับ ID จาก URL
-$id = $_GET['id'];
+// รับค่า ID และตรวจสอบ
+$id = intval($_GET['id']);
+if ($id <= 0) {
+    die("Invalid ID.");
+}
 
-// ดึงข้อมูลลูกค้าจากฐานข้อมูล
-$sql = "SELECT * FROM members WHERE id = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $id);
+// ดึงข้อมูลสมาชิกจากฐานข้อมูล
+$stmt = $pdo->prepare("SELECT * FROM members WHERE id = :id");
+$stmt->bindParam(':id', $id);
 $stmt->execute();
-$result = $stmt->get_result();
-$member = $result->fetch_assoc();
+$member = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // รับข้อมูลจากฟอร์ม
-    $first_name = $_POST['first_name'];
-    $last_name = $_POST['last_name'];
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $address = $_POST['address'];
-    $phone = $_POST['phone'];
+// ตรวจสอบว่าพบข้อมูลหรือไม่
+if (!$member) {
+    die("No member found with ID: $id");
+}
 
-    // อัพเดตข้อมูลในฐานข้อมูล
-    $sql = "UPDATE members SET first_name=?, last_name=?, username=?, email=?, password=?, address=?, phone=? WHERE id=?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssssisi", $first_name, $last_name, $username, $email, $password, $address, $phone, $id);
-    $stmt->execute();
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // รับค่าจากฟอร์ม
+    $firstName = trim($_POST['firstName']);
+    $lastName = trim($_POST['lastName']);
+    $username = trim($_POST['username']);
+    $email = trim($_POST['email']);
+    $address = trim($_POST['address']);
+    $phone = trim($_POST['phone']);
 
-    // เปลี่ยนเส้นทางไปหน้าที่ต้องการหลังอัพเดต
-    header("Location: memberlist.php");
-    exit();
+    // เตรียม SQL สำหรับอัปเดตข้อมูล
+    $stmt = $pdo->prepare("UPDATE members SET first_name = :first_name, last_name = :last_name, username = :username, 
+                                                   email = :email, address = :address, phone = :phone 
+                                                   WHERE id = :id");
+
+    // ผูกค่ากับตัวแปรใน SQL
+    $stmt->bindParam(':first_name', $firstName);
+    $stmt->bindParam(':last_name', $lastName);
+    $stmt->bindParam(':username', $username);
+    $stmt->bindParam(':email', $email);
+    $stmt->bindParam(':address', $address);
+    $stmt->bindParam(':phone', $phone);
+    $stmt->bindParam(':id', $id);
+
+    // ลองรัน SQL
+    try {
+        $stmt->execute();
+
+        // อัปเดตค่า session หาก username มีการเปลี่ยนแปลง
+        if ($_SESSION['username'] !== $username) {
+            $_SESSION['username'] = $username;
+        }
+
+        echo "<script>
+                alert('อัปเดตข้อมูลเรียบร้อยแล้ว');
+                window.location.href = 'index.php';
+              </script>";
+        exit();
+    } catch (PDOException $e) {
+        echo "<script>alert('เกิดข้อผิดพลาด: " . $e->getMessage() . "');</script>";
+        error_log("Database error: " . $e->getMessage());
+    }
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="th">
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
 <head>
-    <meta charset="UTF-8">
-    <title>แก้ไขข้อมูลลูกค้า</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>แก้ไขข้อมูลสมาชิก</title>
+    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 600px;
+            width: 100%;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
-<body>
-    <h1>แก้ไขข้อมูลลูกค้า</h1>
-    <form method="POST">
-        <label>ชื่อ:</label>
-        <input type="text" name="first_name" value="<?php echo $member['first_name']; ?>" required><br>
+<body class="bg-body-tertiary">
+    <div class="container">
+        <main>
+            <div class="py-5 text-center">
+                          <img src="images/7.jpg" alt="" width="200" height="180">
 
-        <label>นามสกุล:</label>
-        <input type="text" name="last_name" value="<?php echo $member['last_name']; ?>" required><br>
+                <h2>แก้ไขข้อมูลสมาชิก</h2>
+                <p class="lead">กรุณาแก้ไขข้อมูลตามต้องการ.</p>
 
-        <label>ชื่อผู้ใช้:</label>
-        <input type="text" name="username" value="<?php echo $member['username']; ?>" required><br>
+                    <h4 class="mb-3">กรอกข้อมูล</h4>
+                    <form class="needs-validation" action="" method="POST" novalidate>
+                        <div class="row g-3">
+                            <div class="col-sm-6">
+                                <label for="firstName" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="firstName" name="firstName" value="<?php echo htmlspecialchars($member['first_name']); ?>" required>
+                                <div class="invalid-feedback">Valid first name is required.</div>
+                            </div>
 
-        <label>อีเมล:</label>
-        <input type="email" name="email" value="<?php echo $member['email']; ?>" required><br>
+                            <div class="col-sm-6">
+                                <label for="lastName" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" name="lastName" value="<?php echo htmlspecialchars($member['last_name']); ?>" required>
+                                <div class="invalid-feedback">Valid last name is required.</div>
+                            </div>
 
-        <label>รหัสผ่าน:</label>
-        <input type="password" name="password" value="<?php echo $member['password']; ?>" required><br>
+                            <div class="col-12">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="username" name="username" value="<?php echo htmlspecialchars($member['username']); ?>" required>
+                                <div class="invalid-feedback">Your username is required.</div>
+                            </div>
 
-        <label>ที่อยู่:</label>
-        <textarea name="address" required><?php echo $member['address']; ?></textarea><br>
+                            <div class="col-12">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($member['email']); ?>" required>
+                                <div class="invalid-feedback">Please enter a valid email address for updates.</div>
+                            </div>
 
-        <label>หมายเลขโทรศัพท์:</label>
-        <input type="text" name="phone" value="<?php echo $member['phone']; ?>" required><br>
+                            <div class="col-12">
+                                <label for="address" class="form-label">Address</label>
+                                <input type="text" class="form-control" id="address" name="address" value="<?php echo htmlspecialchars($member['address']); ?>">
+                            </div>
 
-        <button type="submit">บันทึก</button>
-    </form>
+                            <div class="col-md-3">
+                                <label for="phone" class="form-label">Phone</label>
+                                <input type="text" class="form-control" id="phone" name="phone" value="<?php echo htmlspecialchars($member['phone']); ?>" required>
+                                <div class="invalid-feedback">Phone number is required.</div>
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+                        <button class="w-100 btn btn-primary btn-lg" type="submit">อัปเดตข้อมูล</button>
+                    </form>
+                     </div>
+
+        </main>
+
+        <footer class="my-5 pt-5 text-body-secondary text-center text-small">
+            <p class="mb-1">&nbsp;</p>
+        </footer>
+    </div>
 </body>
 </html>
