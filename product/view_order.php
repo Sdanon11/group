@@ -4,7 +4,7 @@ include("connectdb.php");
 
 // ตรวจสอบว่ามีค่า session 'aid' หรือไม่
 if (!isset($_SESSION['aid'])) {
-    die("Unauthorized access.");
+    die("ไม่มีประวัติการสั่งซื้อกรุณาเข้าสู่ระบบก่อน.");
 }
 
 $sql = "
