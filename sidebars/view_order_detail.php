@@ -75,7 +75,7 @@
 <body>
     <div class="container">
         <h1>รายละเอียดใบสั่งซื้อ เลขที่ <?= htmlspecialchars($_GET['a']); ?></h1>
-        <a href="view_order.php" class="btn btn-secondary" style="float: left;">กลับไปหน้ารายการสินค้า</a>
+        <a href="view_order.php" class="btn btn-secondary" style="float: left;">กลับไปหน้ารายการสั่งซื้อ</a>
         <table>
             <tr>
                 <th>ที่</th>
