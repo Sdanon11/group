@@ -1,4 +1,6 @@
 <?php
+session_start();
+include_once("../product/connectdbmember.php"); // เชื่อมต่อฐานข้อมูล
 // เชื่อมต่อกับฐานข้อมูล
 $conn = new mysqli('localhost', 'username', 'password', 'database');
 
