@@ -86,7 +86,7 @@ include("connectdb.php");
     <a class="nav-link btn-blue" href="productcom.php">คอมพิวเตอร์</a>
 </li>
 <li class="nav-item">
-    <a class="nav-link btn-blue" href="tidtor.php">ติดต่อเราergrgdfdg</a>
+    <a class="nav-link btn-blue" href="tidtor.php">ติดต่อเรา</a>
 </li>
 <li class="nav-item">
     <a class="nav-link btn-blue" href="member.php">สมัครสมาชิก</a>
