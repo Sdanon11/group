@@ -1,3 +1,40 @@
+<?php
+// เริ่มเซสชัน
+session_start();
+
+// ข้อมูลการเชื่อมต่อฐานข้อมูล
+$servername = "localhost"; // เปลี่ยนตามการตั้งค่าของคุณ
+$username = "root";        // ชื่อผู้ใช้ฐานข้อมูล
+$password = "1234mark";            // รหัสผ่านฐานข้อมูล
+$dbname = "shop"; // ชื่อฐานข้อมูลของคุณ
+
+// สร้างการเชื่อมต่อ
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// ตรวจสอบการเชื่อมต่อ
+if ($conn->connect_error) {
+    die("การเชื่อมต่อล้มเหลว: " . $conn->connect_error);
+}
+
+// คำสั่ง SQL เพื่อดึงข้อมูลชื่อผู้ใช้
+$sql = "SELECT a_username FROM admin WHERE a_id = 1"; // เปลี่ยนตามเงื่อนไขที่ต้องการ
+$result = $conn->query($sql);
+
+// ตรวจสอบว่าพบข้อมูลหรือไม่
+if ($result->num_rows > 0) {
+    // ดึงข้อมูลจากแถวแรก
+    $row = $result->fetch_assoc();
+    // ตั้งค่าเซสชันสำหรับ a_username
+    $_SESSION['a_username'] = $row['a_username'];
+} else {
+    echo "ไม่พบข้อมูลผู้ใช้";
+}
+
+// ปิดการเชื่อมต่อ
+$conn->close();
+?>
+
+
 <!doctype html>
 <html lang="en">
   <head>
